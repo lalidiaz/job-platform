@@ -19,17 +19,19 @@ const Wrapper = styled.main`
   }
   h1 {
     font-weight: 700;
+    color:var(--theme-ui-text);
     span {
-      color: var(--primary-500);
+      color: var(--theme-ui-purple);
     }
   }
   p {
-    color: var(--grey-600);
+    color:var(--theme-ui-text);
   }
 
   .btn-hero {
     font-size: 1.25rem;
     padding: 0.5rem 1.25rem;
+
   }
 
   .main-img {
