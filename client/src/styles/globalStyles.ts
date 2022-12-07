@@ -4,8 +4,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: var(--bodyFont);
-
+    font-family:var(--work-sans);
+    background-color:var(--theme-ui-background);
   }
     h1 {
       margin-top: 0;
@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
     .btn {
       cursor: pointer;
       color: var(--white);
-      background: var(--primary-500);
+      background: var(--theme-ui-purple);
       border: transparent;
       border-radius: var(--borderRadius);
       letter-spacing: var(--letterSpacing);
@@ -98,6 +98,10 @@ const GlobalStyle = createGlobalStyle`
   }
   .form-row {
     margin-bottom: 1rem;
+
+    .form-label{
+      color:var(--theme-ui-text);
+    }
   }
 
   .form-textarea {
@@ -133,6 +137,9 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
+  .logo{
+    width:5rem;
+  }
 
   `;
 
