@@ -5,13 +5,13 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
   const token = user.createJWT();
-  res.status(StatusCodes.CREATED).json({ 
+  res.status(StatusCodes.CREATED).json({
     user: {
-      email:user.email, 
-      name: user.name, 
-      lastName:user.lastName, 
-      location:user.location,
-      token
+      email: user.email,
+      name: user.name,
+      lastName: user.lastName,
+      location: user.location,
+      token,
     },
   });
 };
@@ -35,16 +35,18 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
-const updateUser = async(req, res)=>{
-  const {email, name, lastName, location} = req.body;
+const updateUser = async (req, res) => {
+  const { email, name, lastName, location } = req.body;
 
-  if(!email || !name || !lastName || !location){
-    throw new BadRequestError('Please provide all values.')
+  console.log(req.user);
+
+  if (!email || !name || !lastName || !location) {
+    throw new BadRequestError("Please provide all values.");
   }
- 
+
   const user = await User.findOne({
-    _id:req.user.userID
-  })
+    _id: req.user.userID,
+  });
 
   user.email = email;
   user.name = name;
@@ -54,6 +56,6 @@ const updateUser = async(req, res)=>{
   await user.save();
 
   const token = user.createJWT();
-}
+};
 
 module.exports = { register, login, updateUser };
