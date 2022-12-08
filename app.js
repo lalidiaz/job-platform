@@ -27,8 +27,8 @@ const connectDB = require("./db/connect");
 const auth = require("./middleware/authentication");
 
 // routes
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/jobs", auth, jobsRouter);
+app.use("/api/v2/auth", authRouter);
+app.use("/api/v2/jobs", auth, jobsRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
