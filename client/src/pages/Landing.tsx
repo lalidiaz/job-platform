@@ -2,7 +2,7 @@ import Wrapper from "../styles/landingStyles";
 import { Logo } from "../components";
 import { Link } from "react-router-dom";
 
-const Landing: React.FC = () => {
+const Landing: React.FC = (): JSX.Element => {
   return (
     <Wrapper>
       <nav>
@@ -14,9 +14,10 @@ const Landing: React.FC = () => {
             Job <span>tracking</span> app
           </h1>
           <p>
-            Direct trade flannel retro, bushwick intelligentsia lyft glossier man braid Brooklyn adaptogen etsy organic
-            four dollar toast umami bruh. Flexitarian flannel tilde keffiyeh intelligentsia normcore swag whatever.
-            Artisan actually deep v pabst. Chia lomo air plant bruh leggings microdosing 3 wolf moon tilde irony.{" "}
+            Direct trade flannel retro, bushwick intelligentsia lyft glossier man braid Brooklyn
+            adaptogen etsy organic four dollar toast umami bruh. Flexitarian flannel tilde keffiyeh
+            intelligentsia normcore swag whatever. Artisan actually deep v pabst. Chia lomo air
+            plant bruh leggings microdosing 3 wolf moon tilde irony.{" "}
           </p>
           <Link to="/register" className="btn btn-hero">
             Login/register

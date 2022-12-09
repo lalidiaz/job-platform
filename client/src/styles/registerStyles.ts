@@ -10,18 +10,18 @@ export const Wrapper = styled.section`
   }
   .form {
     max-width: 400px;
-    background-color:var(--theme-ui-background);
-    border:1px solid var(--theme-ui-text);
+    background-color: var(--theme-ui-background);
+    border: 0.1rem solid var(--theme-ui-text);
   }
   h3 {
     text-align: center;
-    color:var(--theme-ui-text);
+    color: var(--theme-ui-text);
   }
   p {
     margin: 0;
     margin-top: 1rem;
     text-align: center;
-    color:var(--theme-ui-text);
+    color: var(--theme-ui-text);
   }
   .btn {
     margin-top: 1rem;

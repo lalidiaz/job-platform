@@ -1,7 +1,7 @@
 import Wrapper from "../styles/errorStyles";
 import { Link } from "react-router-dom";
 
-const Error: React.FC = () => {
+const Error: React.FC = (): JSX.Element => {
   return (
     <Wrapper className="full-page">
       <div>

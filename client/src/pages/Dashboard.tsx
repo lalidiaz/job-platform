@@ -1,4 +1,4 @@
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = (): JSX.Element => {
   return (
     <div>
       <h1>Dashboard</h1>

@@ -30,15 +30,24 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
-  // compare password
+
   const token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  res.status(StatusCodes.OK).json({
+    user: {
+      email: user.email,
+      name: user.name,
+      lastName: user.lastName,
+      location: user.location,
+      token,
+    },
+    token,
+  });
 };
 
 const updateUser = async (req, res) => {
   const { email, name, lastName, location } = req.body;
 
-  console.log(req.user);
+  console.log("backend req.user", req.user);
 
   if (!email || !name || !lastName || !location) {
     throw new BadRequestError("Please provide all values.");
