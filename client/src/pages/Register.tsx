@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Wrapper } from "../styles/registerStyles";
 import { Logo, FormRow } from "../components";
 import { toast } from "react-toastify";
 import { registerUser, loginUser } from "../features/user/userSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const initialState = {
   name: "",
@@ -12,7 +12,7 @@ const initialState = {
   password: "",
   isMember: true,
 };
-const Register: React.FC = (): JSX.Element => {
+const Register = (): JSX.Element => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
   const { isLoading, user } = useAppSelector((store) => store.user);
@@ -46,9 +46,9 @@ const Register: React.FC = (): JSX.Element => {
 
     if (isMember) {
       dispatch(loginUser({ email, password }));
+
       return;
     }
-
     dispatch(registerUser({ email, name, password }));
   };
 
@@ -104,3 +104,38 @@ const Register: React.FC = (): JSX.Element => {
   );
 };
 export default Register;
+
+const Wrapper = styled.section`
+  display: grid;
+  align-items: center;
+  .logo {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1.38rem;
+  }
+  .form {
+    max-width: 400px;
+    background-color: var(--theme-ui-background);
+    border: 0.1rem solid var(--theme-ui-text);
+  }
+  h3 {
+    text-align: center;
+    color: var(--theme-ui-text);
+  }
+  p {
+    margin: 0;
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--theme-ui-text);
+  }
+  .btn {
+    margin-top: 1rem;
+  }
+  .member-btn {
+    background: transparent;
+    border: transparent;
+    color: var(--primary-500);
+    cursor: pointer;
+    letter-spacing: var(--letterSpacing);
+  }
+`;

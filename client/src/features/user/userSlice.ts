@@ -7,35 +7,52 @@ import {
   removeUserToLocalStorage,
   getUserToLocalStorage,
 } from "../../utils/localStorage";
-
-export interface User {
-  email: string;
-  lastName: string;
-  location: string;
-  name: string;
-  token: string;
-}
+import { RootState } from "../../store";
+import { registerThunk, loginThunk } from "./userThunk";
 
 interface ErrorMsg {
   message: string;
 }
 
+export interface IUser {
+  email: string;
+  lastName: string;
+  location: string;
+  name: string;
+  token?: string;
+}
+
+interface IUserProps {
+  user: IUser;
+}
+
 export interface UserState {
   isLoading: boolean;
-  user: User | null;
+  user: IUser | null;
+  isSidebarOpen: boolean;
   error: string | null | {};
 }
 
 const initialState = {
   isLoading: false,
   user: getUserToLocalStorage(),
+  isSidebarOpen: false,
   error: null,
 } as UserState;
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleSidebar: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
+    logoutUser: (state) => {
+      state.user = null;
+      state.isSidebarOpen = false;
+      removeUserToLocalStorage();
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -52,6 +69,8 @@ const userSlice = createSlice({
         if (action.payload) {
           state.isLoading = false;
           state.error = action.payload;
+        } else {
+          state.error = action.error;
         }
       })
       .addCase(loginUser.pending, (state) => {
@@ -68,6 +87,30 @@ const userSlice = createSlice({
         if (action.payload) {
           state.isLoading = false;
           state.error = action.payload;
+        } else {
+          state.error = action.error;
+        }
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        if (payload) {
+          const { user } = payload;
+          state.isLoading = false;
+          state.user = user;
+          addUserToLocalStorage(user);
+          toast.success(
+            `Profile updated:${user.name}, ${user.lastName}, ${user.location} and ${user.email}`
+          );
+        }
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        if (action.payload) {
+          state.isLoading = false;
+          state.error = action.payload;
+        } else {
+          state.error = action.error;
         }
       });
   },
@@ -75,36 +118,46 @@ const userSlice = createSlice({
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
-  async (user: { email: string; name: string; password: string }, thunkAPI) => {
-    try {
-      const response = await customFetch.post("/auth/register", user);
-      return response.data;
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        message = error.response.data.msg;
-      } else message = String(error);
-      toast.error(message);
-      return thunkAPI.rejectWithValue(message as ErrorMsg);
-    }
+  async (user: { email: string; name: string; password: string }, thunkApi) => {
+    return registerThunk("/auth/register", user, thunkApi);
   }
 );
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (user: { email: string; password: string }, thunkAPI) => {
+  async (user: { email: string; password: string }, thunkApi) => {
+    return loginThunk("/auth/login", user, thunkApi);
+  }
+);
+
+export const updateUser = createAsyncThunk<IUserProps, IUser>(
+  "user/updateUser",
+  async (user, thunkApi) => {
     try {
-      const response = await customFetch.post("/auth/login", user);
+      const state = thunkApi.getState() as RootState;
+      const response = await customFetch.patch("/auth/updateUser", user, {
+        headers: {
+          Authorization: `Bearer ${state.user?.user?.token}`,
+        },
+      });
+
       return response.data;
     } catch (error) {
       let message;
       if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 401) {
+          message = "Unauthorized, log in again please.";
+          thunkApi.dispatch(logoutUser());
+          toast.error(message);
+          return thunkApi.rejectWithValue("Unauthorized, log in again please.");
+        }
         message = error.response.data.msg;
       } else message = String(error);
       toast.error(message);
-      return thunkAPI.rejectWithValue(message as ErrorMsg);
+      return thunkApi.rejectWithValue(message as ErrorMsg);
     }
   }
 );
 
+export const { toggleSidebar, logoutUser } = userSlice.actions;
 export default userSlice.reducer;

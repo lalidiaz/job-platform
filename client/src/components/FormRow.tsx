@@ -3,7 +3,7 @@ interface Props {
   name: string;
   value: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  labelText: string;
+  labelText?: string;
 }
 
 const FormRow = ({ type, name, value, handleChange, labelText }: Props) => {
@@ -12,7 +12,14 @@ const FormRow = ({ type, name, value, handleChange, labelText }: Props) => {
       <label htmlFor={name} className="form-label">
         {labelText || name}
       </label>
-      <input type={type} value={value} name={name} onChange={handleChange} className="form-input" />
+      <input
+        id={name}
+        type={type}
+        name={name}
+        value={value}
+        onChange={handleChange}
+        className="form-input"
+      />
     </div>
   );
 };

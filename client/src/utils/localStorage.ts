@@ -1,6 +1,6 @@
-import { User } from "../features/user/userSlice";
+import { IUser } from "../features/user/userSlice";
 
-export const addUserToLocalStorage = (user: User): void => {
+export const addUserToLocalStorage = (user: IUser): void => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 

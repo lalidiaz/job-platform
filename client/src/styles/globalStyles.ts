@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family:var(--work-sans);
     background-color:var(--theme-ui-background);
+    color:var(--theme-ui-text);
   }
     h1 {
       margin-top: 0;
@@ -65,7 +66,6 @@ const GlobalStyle = createGlobalStyle`
   .form {
     width: 90vw;
     max-width: var(--fixed-width);
-    background: var(--white);
     border-radius: var(--borderRadius);
     box-shadow: var(--shadow-2);
     padding: 2rem 2.5rem;
