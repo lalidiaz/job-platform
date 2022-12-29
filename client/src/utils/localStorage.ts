@@ -8,7 +8,7 @@ export const removeUserToLocalStorage = (): void => {
   localStorage.removeItem("user");
 };
 
-export const getUserToLocalStorage = () => {
+export const getUserFromLocalStorage = () => {
   const result = localStorage.getItem("user");
   const user = result ? JSON.parse(result) : null;
   return user;

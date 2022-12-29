@@ -2,15 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 import axios from "axios";
+import { RootState } from "../../store";
+import { registerThunk, loginThunk } from "./userThunk";
 import {
   addUserToLocalStorage,
   removeUserToLocalStorage,
-  getUserToLocalStorage,
+  getUserFromLocalStorage,
 } from "../../utils/localStorage";
-import { RootState } from "../../store";
-import { registerThunk, loginThunk } from "./userThunk";
 
-interface ErrorMsg {
+interface IErrorMsg {
   message: string;
 }
 
@@ -26,7 +26,7 @@ interface IUserProps {
   user: IUser;
 }
 
-export interface UserState {
+interface UserState {
   isLoading: boolean;
   user: IUser | null;
   isSidebarOpen: boolean;
@@ -35,7 +35,7 @@ export interface UserState {
 
 const initialState = {
   isLoading: false,
-  user: getUserToLocalStorage(),
+  user: getUserFromLocalStorage(),
   isSidebarOpen: false,
   error: null,
 } as UserState;
@@ -47,10 +47,13 @@ const userSlice = createSlice({
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
-    logoutUser: (state) => {
+    logoutUser: (state, { payload }) => {
       state.user = null;
       state.isSidebarOpen = false;
       removeUserToLocalStorage();
+      if (payload) {
+        toast.success(payload);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -146,15 +149,15 @@ export const updateUser = createAsyncThunk<IUserProps, IUser>(
       let message;
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 401) {
-          message = "Unauthorized, log in again please.";
+          message = "Unauthorized";
           thunkApi.dispatch(logoutUser());
           toast.error(message);
-          return thunkApi.rejectWithValue("Unauthorized, log in again please.");
+          return thunkApi.rejectWithValue(message);
         }
         message = error.response.data.msg;
       } else message = String(error);
       toast.error(message);
-      return thunkApi.rejectWithValue(message as ErrorMsg);
+      return thunkApi.rejectWithValue(message as IErrorMsg);
     }
   }
 );

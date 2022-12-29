@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { FormRow, FormRowSelect } from "../../components";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { device } from "../../styles/device";
-import { handleChange, clearValues } from "../../features/job/jobSlice";
+import { handleChange, clearValues, createJob } from "../../features/job/jobSlice";
 
 const AddJob = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ const AddJob = (): JSX.Element => {
     status,
     isEditing,
   } = useAppSelector((store) => store.job);
+  const { user } = useAppSelector((store) => store.user);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -26,6 +28,16 @@ const AddJob = (): JSX.Element => {
       toast.error("Please fill out all fields");
       return;
     }
+
+    dispatch(
+      createJob({
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      })
+    );
   };
 
   const handleJobInput = (
@@ -36,6 +48,10 @@ const AddJob = (): JSX.Element => {
 
     dispatch(handleChange({ name, value }));
   };
+
+  useEffect(() => {
+    dispatch(handleChange({ name: "jobLocation", value: user?.location }));
+  }, [dispatch, user?.location]);
 
   return (
     <Wrapper>
@@ -55,14 +71,14 @@ const AddJob = (): JSX.Element => {
             name="status"
             value={status}
             handleChange={handleJobInput}
-            list={statusOptions}
+            list={statusOptions!}
           />
           <FormRowSelect
             name="jobType"
             labelText="job type"
             value={jobType}
             handleChange={handleJobInput}
-            list={jobTypeOptions}
+            list={jobTypeOptions!}
           />
           <div className="btn-container">
             <button
