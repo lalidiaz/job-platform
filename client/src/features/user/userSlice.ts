@@ -150,7 +150,7 @@ export const updateUser = createAsyncThunk<IUserProps, IUser>(
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 401) {
           message = "Unauthorized";
-          thunkApi.dispatch(logoutUser());
+          thunkApi.dispatch(logoutUser(message));
           toast.error(message);
           return thunkApi.rejectWithValue(message);
         }

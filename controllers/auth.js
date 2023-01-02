@@ -52,7 +52,7 @@ const updateUser = async (req, res) => {
   }
 
   const user = await User.findOne({
-    _id: req.user.userID,
+    id: req.user.userID,
   });
 
   user.email = email;

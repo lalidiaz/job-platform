@@ -61,3 +61,15 @@ html {
 .Toastify__toast {
   /* text-transform: uppercase; */
 }
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  border: 5px solid var(--theme-ui-blue);
+  border-radius: 50%;
+  border-top-color: var(--theme-ui-gray);
+  animation: spinner 2s linear infinite;
+}
+.loading-center {
+  margin: 0 auto;
+}

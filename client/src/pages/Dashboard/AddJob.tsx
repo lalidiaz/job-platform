@@ -4,7 +4,8 @@ import { FormRow, FormRowSelect } from "../../components";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { device } from "../../styles/device";
-import { handleChange, clearValues, createJob } from "../../features/job/jobSlice";
+import { handleChange, clearValues, createJob, editJob } from "../../features/job/jobSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddJob = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,9 @@ const AddJob = (): JSX.Element => {
     statusOptions,
     status,
     isEditing,
+    editJobId,
   } = useAppSelector((store) => store.job);
+  const navigate = useNavigate();
   const { user } = useAppSelector((store) => store.user);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -29,6 +32,10 @@ const AddJob = (): JSX.Element => {
       return;
     }
 
+    if (isEditing) {
+      dispatch(editJob({ jobId: editJobId, position, company, jobLocation, jobType, status }));
+      return;
+    }
     dispatch(
       createJob({
         position,
@@ -38,6 +45,10 @@ const AddJob = (): JSX.Element => {
         status,
       })
     );
+
+    setTimeout(() => {
+      navigate("/all-jobs");
+    }, 2000);
   };
 
   const handleJobInput = (
@@ -50,8 +61,10 @@ const AddJob = (): JSX.Element => {
   };
 
   useEffect(() => {
-    dispatch(handleChange({ name: "jobLocation", value: user?.location }));
-  }, [dispatch, user?.location]);
+    if (!isEditing) {
+      dispatch(handleChange({ name: "jobLocation", value: user?.location }));
+    }
+  }, [dispatch, isEditing, user?.location]);
 
   return (
     <Wrapper>

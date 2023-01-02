@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 import { toggleSidebar, logoutUser } from "../features/user/userSlice";
 
 const Navbar = (): JSX.Element => {
-  const [showLogout, setShowLogout] = useState<boolean>(false);
+  const [showLogout, setShowLogout] = useState(false);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((store) => store.user);
 
