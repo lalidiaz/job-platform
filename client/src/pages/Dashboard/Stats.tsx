@@ -1,8 +1,22 @@
-const Stats = (): JSX.Element => {
+import { useEffect } from "react";
+import { StatsContainer, ChartsContainer } from "../../components";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { showStats } from "../../features/job/allJobSlice";
+
+const Stats = () => {
+  const { isLoading, monthlyApplications } = useAppSelector((store) => store.allJobs);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(showStats());
+  }, []);
+
   return (
-    <div>
-      <h1>Stats</h1>
-    </div>
+    <>
+      <StatsContainer />
+      {monthlyApplications.length > 0 && <ChartsContainer />}
+    </>
   );
 };
 export default Stats;

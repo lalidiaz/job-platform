@@ -1,19 +1,18 @@
 import { useEffect } from "react";
-import { Job, Loading } from ".";
+import { Job, Loading, PageBtnContainer } from ".";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import styled from "styled-components";
 import { device } from "../styles/device";
 import { getAllJobs } from "../features/job/allJobSlice";
 
 const JobsContainer = () => {
-  const { jobs, isLoading } = useAppSelector((store) => store.allJobs);
+  const { jobs, isLoading, page, totalJobs, numPages, search, searchStatus, searchType, sort } =
+    useAppSelector((store) => store.allJobs);
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     dispatch(getAllJobs());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page, search, searchStatus, searchType, sort]);
 
   if (isLoading) {
     return (
@@ -31,12 +30,15 @@ const JobsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>Jobs Info</h5>
+      <h4>
+        {totalJobs} job{jobs.length > 1 && "s"} found
+      </h4>
       <div className="jobs">
         {jobs.map((job) => {
           return <Job key={job._id as string} {...job} createdAt={job.createdAt as Date} />;
         })}
       </div>
+      {numPages > 1 && <PageBtnContainer />}
     </Wrapper>
   );
 };

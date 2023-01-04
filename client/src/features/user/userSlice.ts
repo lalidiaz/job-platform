@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, AsyncThunkAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 import axios from "axios";
@@ -9,6 +9,8 @@ import {
   removeUserToLocalStorage,
   getUserFromLocalStorage,
 } from "../../utils/localStorage";
+import { clearAllJobsState } from "../job/allJobSlice";
+import { clearValues } from "../job/jobSlice";
 
 interface IErrorMsg {
   message: string;
@@ -26,7 +28,7 @@ interface IUserProps {
   user: IUser;
 }
 
-interface UserState {
+export interface IUserState {
   isLoading: boolean;
   user: IUser | null;
   isSidebarOpen: boolean;
@@ -38,7 +40,64 @@ const initialState = {
   user: getUserFromLocalStorage(),
   isSidebarOpen: false,
   error: null,
-} as UserState;
+} as IUserState;
+
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
+  async (user: { email: string; name: string; password: string }, thunkApi) => {
+    return registerThunk("/auth/register", user, thunkApi);
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (user: { email: string; password: string }, thunkApi) => {
+    return loginThunk("/auth/login", user, thunkApi);
+  }
+);
+
+export const updateUser = createAsyncThunk<IUserProps, IUser>(
+  "user/updateUser",
+  async (user, thunkApi) => {
+    try {
+      const state = thunkApi.getState() as RootState;
+      const response = await customFetch.patch("/auth/updateUser", user, {
+        headers: {
+          Authorization: `Bearer ${state.user?.user?.token}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      let message;
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 401) {
+          message = "Unauthorized";
+          thunkApi.dispatch(logoutUser(message));
+          toast.error(message);
+          return thunkApi.rejectWithValue(message);
+        }
+        message = error.response.data.msg;
+      } else message = String(error);
+      toast.error(message);
+      return thunkApi.rejectWithValue(message as IErrorMsg);
+    }
+  }
+);
+
+export const clearStoreValues = createAsyncThunk(
+  "user/clearStore",
+  async (message: string, thunkApi) => {
+    try {
+      thunkApi.dispatch(logoutUser(message));
+      thunkApi.dispatch(clearAllJobsState());
+      thunkApi.dispatch(clearValues());
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject();
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -115,52 +174,12 @@ const userSlice = createSlice({
         } else {
           state.error = action.error;
         }
+      })
+      .addCase(clearStoreValues.rejected, (state, action) => {
+        toast.error("Sorry, there was an error.");
       });
   },
 });
-
-export const registerUser = createAsyncThunk(
-  "user/registerUser",
-  async (user: { email: string; name: string; password: string }, thunkApi) => {
-    return registerThunk("/auth/register", user, thunkApi);
-  }
-);
-
-export const loginUser = createAsyncThunk(
-  "user/loginUser",
-  async (user: { email: string; password: string }, thunkApi) => {
-    return loginThunk("/auth/login", user, thunkApi);
-  }
-);
-
-export const updateUser = createAsyncThunk<IUserProps, IUser>(
-  "user/updateUser",
-  async (user, thunkApi) => {
-    try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.patch("/auth/updateUser", user, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
-
-      return response.data;
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        if (error.response.status === 401) {
-          message = "Unauthorized";
-          thunkApi.dispatch(logoutUser(message));
-          toast.error(message);
-          return thunkApi.rejectWithValue(message);
-        }
-        message = error.response.data.msg;
-      } else message = String(error);
-      toast.error(message);
-      return thunkApi.rejectWithValue(message as IErrorMsg);
-    }
-  }
-);
 
 export const { toggleSidebar, logoutUser } = userSlice.actions;
 export default userSlice.reducer;

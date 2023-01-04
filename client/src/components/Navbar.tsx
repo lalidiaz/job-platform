@@ -3,7 +3,7 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
 import Logo from "./Logo";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks";
-import { toggleSidebar, logoutUser } from "../features/user/userSlice";
+import { toggleSidebar, clearStoreValues } from "../features/user/userSlice";
 
 const Navbar = (): JSX.Element => {
   const [showLogout, setShowLogout] = useState(false);
@@ -22,7 +22,6 @@ const Navbar = (): JSX.Element => {
         </button>
         <div>
           <Logo />
-          {/* <h3 className="logo-text">dashboard</h3> */}
         </div>
         <div className="btn-container">
           <button type="button" className="btn" onClick={() => setShowLogout(!showLogout)}>
@@ -34,7 +33,7 @@ const Navbar = (): JSX.Element => {
             <button
               type="button"
               className="dropdown-btn"
-              onClick={() => dispatch(logoutUser("Logging out..."))}
+              onClick={() => dispatch(clearStoreValues("Logging out..."))}
             >
               logout
             </button>

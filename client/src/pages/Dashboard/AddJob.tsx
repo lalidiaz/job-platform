@@ -36,6 +36,7 @@ const AddJob = (): JSX.Element => {
       dispatch(editJob({ jobId: editJobId, position, company, jobLocation, jobType, status }));
       return;
     }
+
     dispatch(
       createJob({
         position,
