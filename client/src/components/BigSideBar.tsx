@@ -61,19 +61,19 @@ const Wrapper = styled.aside`
     .nav-link {
       display: flex;
       align-items: center;
-      color: var(--grey-500);
+      color: var(--green-logo-dark);
       padding: 1rem 0;
       padding-left: 2.5rem;
       text-transform: capitalize;
       transition: var(--transition);
     }
     .nav-link:hover {
-      background: var(--grey-50);
+      background: var(--green-logo-transparent);
       padding-left: 3rem;
-      color: var(--theme-ui-background);
+      color: var(--green-logo-dark);
     }
     .nav-link:hover .icon {
-      color: var(--theme-ui-purple);
+      color: var(--green-logo-dark);
     }
     .icon {
       font-size: 1.5rem;
@@ -83,10 +83,11 @@ const Wrapper = styled.aside`
       transition: var(--transition);
     }
     .active {
-      color: var(--theme-ui-purple);
+      color: var(--green-logo-dark);
+      background: var(--green-logo-transparent);
     }
     .active .icon {
-      color: var(--theme-ui-purple);
+      color: var(--green-logo-dark);
     }
   }
 `;

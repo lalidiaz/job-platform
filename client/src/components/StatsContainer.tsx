@@ -1,7 +1,9 @@
 import { useAppSelector } from "../hooks";
 import styled from "styled-components";
 import { StatItem } from "./";
-import { FaSuitcaseRolling, FaCalendarCheck, FaBug } from "react-icons/fa";
+import { FaCalendarCheck } from "react-icons/fa";
+import { MdPendingActions } from "react-icons/md";
+import { AiOutlinePaperClip } from "react-icons/ai";
 
 const StatsContainer = () => {
   const { stats } = useAppSelector((store) => store.allJobs);
@@ -10,23 +12,20 @@ const StatsContainer = () => {
     {
       title: "pending applications",
       count: stats?.pending || 0,
-      icon: <FaSuitcaseRolling />,
-      color: "#e9b949",
-      bcg: "#fcefc7",
+      icon: <MdPendingActions />,
+      color: "#81a0d3",
     },
     {
       title: "interviews scheduled",
       count: stats?.interview || 0,
       icon: <FaCalendarCheck />,
-      color: "#647acb",
-      bcg: "#e0e8f9",
+      color: "#fac372",
     },
     {
       title: "jobs declined",
       count: stats?.declined || 0,
-      icon: <FaBug />,
-      color: "#d66a6a",
-      bcg: "#ffeeee",
+      icon: <AiOutlinePaperClip />,
+      color: "#ed7370",
     },
   ];
 

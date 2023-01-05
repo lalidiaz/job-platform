@@ -117,6 +117,8 @@ export default Register;
 const Wrapper = styled.section`
   display: grid;
   align-items: center;
+  background-color: var(--green-logo);
+
   .logo {
     display: block;
     margin: 0 auto;
@@ -124,18 +126,19 @@ const Wrapper = styled.section`
   }
   .form {
     max-width: 400px;
-    background-color: var(--theme-ui-background);
-    border: 0.1rem solid var(--theme-ui-text);
+    background-color: var(--background);
+    border: 0.1rem solid var(--text);
+    border: 0;
   }
   h3 {
     text-align: center;
-    color: var(--theme-ui-text);
+    color: var(--text);
   }
   p {
     margin: 0;
     margin-top: 1rem;
     text-align: center;
-    color: var(--theme-ui-text);
+    color: var(--text);
   }
   .btn {
     margin-top: 1rem;
@@ -143,7 +146,7 @@ const Wrapper = styled.section`
   .member-btn {
     background: transparent;
     border: transparent;
-    color: var(--primary-500);
+    color: var(--green-logo);
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }

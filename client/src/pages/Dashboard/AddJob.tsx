@@ -121,22 +121,23 @@ export default AddJob;
 const Wrapper = styled.section`
   border-radius: var(--borderRadius);
   width: 100%;
-  padding: 3rem 2rem 4rem;
-  box-shadow: var(--shadow-2);
+
+  @media ${device.laptop} {
+    padding: 3rem 2rem 4rem;
+  }
+
   h3 {
     margin-top: 0;
+    padding: 20px 0px 0px 0px;
   }
   .form {
     margin: 0;
-    border-radius: 0;
     box-shadow: none;
-    padding: 0;
     max-width: 100%;
     width: 100%;
+    border-radius: var(--borderRadius);
   }
-  .form-row {
-    margin-bottom: 0;
-  }
+
   .form-center {
     display: grid;
     row-gap: 0.5rem;
@@ -151,16 +152,16 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
     align-self: flex-end;
-    margin-top: 0.5rem;
+    margin-bottom: 20px;
     button {
       height: 35px;
     }
   }
   .clear-btn {
-    background: var(--theme-ui-red);
+    background: var(--red);
   }
   .clear-btn:hover {
-    background: var(--theme-ui-pink);
+    background: var(--pink);
   }
   @media ${device.tablet} {
     .form-center {

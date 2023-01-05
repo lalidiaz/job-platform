@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { useState, useMemo, SetStateAction } from "react";
 import { handleChange, clearFilters } from "../features/job/allJobSlice";
+import { device } from "../styles/device";
 
 const SearchContainer = (): JSX.Element => {
   const [localSearch, setLocalSearch] = useState("");
@@ -40,7 +41,7 @@ const SearchContainer = (): JSX.Element => {
   return (
     <Wrapper>
       <form className="form">
-        <h4>search form</h4>
+        <h3>Search Job</h3>
         <div className="form-center">
           <FormRow type="text" name="search" value={localSearch} handleChange={optimizedDebounce} />
 
@@ -81,33 +82,33 @@ const Wrapper = styled.section`
   .btn-block {
     height: 35px;
   }
-  .form-row {
-    margin-bottom: 0;
-  }
+
   .form-center {
     display: grid;
     grid-template-columns: 1fr;
     column-gap: 2rem;
     row-gap: 0.5rem;
   }
-  h5 {
-    font-weight: 700;
+
+  .btn-danger {
+    background-color: var(--red);
+    margin-bottom: 20px;
   }
   .btn-block {
     align-self: end;
     margin-top: 1rem;
   }
-  @media (min-width: 768px) {
+  .btn-block:hover {
+    background-color: var(--red-dark);
+  }
+  @media ${device.tablet} {
     .form-center {
       grid-template-columns: 1fr 1fr;
     }
   }
-  @media (min-width: 992px) {
+  @media ${device.laptop} {
     .form-center {
       grid-template-columns: 1fr 1fr 1fr;
-    }
-    .btn-block {
-      margin-top: 0;
     }
   }
 `;

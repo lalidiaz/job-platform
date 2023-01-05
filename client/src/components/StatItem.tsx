@@ -6,13 +6,11 @@ interface IStatItem {
   title: string;
   icon: ReactNode;
   color: string;
-  bcg?: string;
 }
 
 const StatItem = (item: IStatItem) => {
-  const { color, count, bcg, icon, title } = item;
+  const { color, count, icon, title } = item;
   return (
-    // <Wrapper color={color} bcg={bcg}>
     <Wrapper color={color}>
       <header>
         <span className="count">{count}</span>
@@ -23,12 +21,11 @@ const StatItem = (item: IStatItem) => {
   );
 };
 
-//  // background: ${(props) => props.bcg};
 const Wrapper = styled.article`
   padding: 2rem;
-  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: var(--borderRadius);
-  border-bottom: 5px solid ${(props) => props.color};
+  border-bottom: 3px solid ${(props) => props.color};
   header {
     display: flex;
     align-items: center;
@@ -36,8 +33,8 @@ const Wrapper = styled.article`
   }
   .count {
     display: block;
-    font-weight: 700;
-    font-size: 50px;
+    font-weight: 600;
+    font-size: 2.3rem;
     color: ${(props) => props.color};
   }
   .title {
@@ -46,11 +43,11 @@ const Wrapper = styled.article`
     letter-spacing: var(--letterSpacing);
     text-align: left;
     margin-top: 0.5rem;
+    font-weight: 400;
   }
   .icon {
-    width: 70px;
-    height: 60px;
-
+    width: 50px;
+    height: 40px;
     border-radius: var(--borderRadius);
     display: flex;
     align-items: center;

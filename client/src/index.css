@@ -1,6 +1,6 @@
-/* fonts */
-@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300;400;600&family=Work+Sans:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap");
 
 *,
 ::after,
@@ -8,54 +8,46 @@
   box-sizing: border-box;
 }
 
-html {
+html,
+body {
   font-size: 100%;
 }
 
 :root {
-  /* colors */
-  --red-hat-mono: "Red Hat Mono", monospace;
-  --work-sans: "Work Sans", sans-serif;
-  --theme-ui-background: #1b1e23;
-  --theme-ui-text: #ebebec;
-  --theme-ui-red: #f07071;
-  --theme-ui-orange: #ea9755;
-  --theme-ui-yellow: #d4c05e;
-  --theme-ui-green: #7eb36a;
-  --theme-ui-teal: #64b9c4;
-  --theme-ui-blue: #85a2f7;
-  --theme-ui-purple: #bc85d9;
-  --theme-ui-pink: #e587b6;
-  --theme-ui-gray: #a9b4c4;
+  --roboto: "Roboto", sans-serif;
+  --openSans: "Open Sans", sans-serif;
 
-  /* text */
+  --poppins: "Poppins", sans-serif;
+  --background: #ffffff;
+  --border: #c8bcd6;
+  /* --text: #2b2c31; */
+  --text: #757575;
+  --white: #fff;
+  --purple: #bc85d9;
+  --red: #ed7370;
+  --red-dark: #bd5957;
+  --pink: #e587b6;
+  --blue-dark: #5e72ad;
+  --blue: #85a2f7;
+  --blue-transparent: #85a1f71a;
+  --blue-light: #85a1f789;
+  --gray: #e0e0e0;
+  --gray-dark: #888585;
+  --green-dark: #395230;
+  --green: #7eb36a;
+  --nav-height: 4rem;
   --line-height: 1.35;
   --letter-spacing: 0.01em;
-
-  /* colors */
-  --grey-50: #f0f4f8;
-  --primary-700: #65499c;
-  --primary-500: #b39ddb;
-  --primary-400: #d1c4e9;
-  --grey-600: #486581;
-  --white: #fff;
-
   --fixed-width: 500px;
   --fluid-width: 90vw;
-  --headingFont: "Roboto Condensed", Sans-Serif;
-  --bodyFont: "Cabin", Sans-Serif;
-  --small-text: 0.875rem;
-  --extra-small-text: 0.7em;
   --letterSpacing: 1px;
   --transition: 0.3s ease-in-out all;
   --max-width: 1120px;
-  --nav-height: 6rem;
-  --borderRadius: 0.25rem;
-  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --backgroundColor: var(--grey-50);
-  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --borderRadius: 0.3rem;
+  --inputBackground: #f0f4f8;
+  --green-logo: #5bbba9;
+  --green-logo-dark: #2e6056;
+  --green-logo-transparent: #2e605648;
 }
 
 .Toastify__toast {
@@ -65,9 +57,9 @@ html {
 .loading {
   width: 6rem;
   height: 6rem;
-  border: 5px solid var(--theme-ui-blue);
+  border: 5px solid var(--blue);
   border-radius: 50%;
-  border-top-color: var(--theme-ui-gray);
+  border-top-color: var(--gray);
   animation: spinner 2s linear infinite;
 }
 .loading-center {

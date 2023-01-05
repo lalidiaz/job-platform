@@ -15,10 +15,10 @@ const Landing = (): JSX.Element => {
             Job <span>tracking</span> app
           </h1>
           <p>
-            Direct trade flannel retro, bushwick intelligentsia lyft glossier man braid Brooklyn
-            adaptogen etsy organic four dollar toast umami bruh. Flexitarian flannel tilde keffiyeh
-            intelligentsia normcore swag whatever. Artisan actually deep v pabst. Chia lomo air
-            plant bruh leggings microdosing 3 wolf moon tilde irony.{" "}
+            This is a fullstack application built with <span>ReactJs</span> as the Frontend and{" "}
+            <span>Nodejs</span> as the Backend. For you to test the application, you can log in as a
+            Test User (you will not be able to edit, delete or modify data). You can also log in or
+            register.
           </p>
           <Link to="/register" className="btn btn-hero">
             Login/register
@@ -40,30 +40,37 @@ const Wrapper = styled.main`
     height: var(--nav-height);
     display: flex;
     align-items: center;
+    padding: 100px 0px 0px 0px;
   }
   .page {
     min-height: calc(100vh - var(--nav-height));
     display: grid;
     align-items: center;
     margin-top: -3rem;
-    padding: 2rem;
   }
   h1 {
     font-weight: 700;
-    color: var(--theme-ui-text);
+    color: var(--text);
     span {
-      color: var(--theme-ui-purple);
+      color: var(--green-logo);
     }
   }
   p {
-    color: var(--theme-ui-text);
-  }
+    color: var(--text);
+    line-height: 1.8rem;
 
+    span {
+      color: var(--green-logo);
+    }
+  }
   .btn-hero {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.5rem 1.25rem;
+    background-color: var(--green-logo);
   }
-
+  .btn-hero:hover {
+    background-color: var(--green-logo-dark);
+  }
   .main-img {
     display: none;
   }

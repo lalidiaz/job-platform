@@ -91,27 +91,27 @@ export default Job;
 const Wrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
+  border: 1px solid var(--gray);
   display: grid;
   grid-template-rows: 1fr auto;
-  box-shadow: var(--shadow-2);
   header {
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--text);
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
+    align-items: flex-end;
     h5 {
       letter-spacing: 0;
     }
   }
   .main-icon {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     display: grid;
     place-items: center;
-    background: var(--primary-500);
+    background: var(--text);
     border-radius: var(--borderRadius);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--white);
@@ -131,14 +131,23 @@ const Wrapper = styled.article`
   .pending {
     background: #fcefc7;
     color: #e9b949;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .interview {
     background: #e0e8f9;
     color: #647acb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .declined {
     color: #d66a6a;
     background: #ffeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .content {
     padding: 1rem 1.5rem;
@@ -176,13 +185,11 @@ const Wrapper = styled.article`
     height: 30px;
   }
   .edit-btn {
-    color: var(--green-dark);
-    background: var(--green-light);
+    background: var(--green-logo);
     margin-right: 0.5rem;
   }
   .delete-btn {
-    color: var(--red-dark);
-    background: var(--red-light);
+    background: var(--red);
   }
   &:hover .actions {
     visibility: visible;

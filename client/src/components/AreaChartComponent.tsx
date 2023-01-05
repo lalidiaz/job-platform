@@ -17,7 +17,7 @@ const AreaChartComponent = ({ data }: { data: IMontlhyApplications[] }) => {
         <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Area type="monotone" dataKey="count" stroke="#1e3a8a" fill="#3b82f6" />
+        <Area type="monotone" dataKey="count" stroke="#81a0d3" fill="#81a0d3" />
       </AreaChart>
     </ResponsiveContainer>
   );

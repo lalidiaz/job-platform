@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
+import { FaUserCircle, FaCaretDown } from "react-icons/fa";
+import { HiOutlineMenu } from "react-icons/hi";
 import Logo from "./Logo";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { toggleSidebar, clearStoreValues } from "../features/user/userSlice";
+import { device } from "../styles/device";
 
 const Navbar = (): JSX.Element => {
   const [showLogout, setShowLogout] = useState(false);
@@ -18,7 +20,7 @@ const Navbar = (): JSX.Element => {
     <Wrapper>
       <div className="nav-center">
         <button type="button" className="toggle-btn" onClick={toggle}>
-          <FaAlignLeft />
+          <HiOutlineMenu color="#5bbba9" />
         </button>
         <div>
           <Logo />
@@ -47,14 +49,16 @@ export default Navbar;
 
 const Wrapper = styled.nav`
   height: var(--nav-height);
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+
   .logo {
     display: flex;
     align-items: center;
-    width: 100px;
+    width: 200px;
   }
   .nav-center {
     display: flex;
@@ -66,7 +70,7 @@ const Wrapper = styled.nav`
     background: transparent;
     border-color: transparent;
     font-size: 1.75rem;
-    color: var(--primary-500);
+    color: var(--green-logo);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -81,15 +85,13 @@ const Wrapper = styled.nav`
     justify-content: center;
     gap: 0 0.5rem;
     position: relative;
-    box-shadow: var(--shadow-2);
   }
   .dropdown {
     position: absolute;
     top: 40px;
     left: 0;
     width: 100%;
-    background: var(--primary-100);
-    box-shadow: var(--shadow-2);
+    background-color: var(--green-logo-dark);
     padding: 0.5rem;
     text-align: center;
     visibility: hidden;
@@ -99,9 +101,9 @@ const Wrapper = styled.nav`
     visibility: visible;
   }
   .dropdown-btn {
+    color: white;
     background: transparent;
     border-color: transparent;
-    color: var(--primary-500);
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
@@ -110,7 +112,7 @@ const Wrapper = styled.nav`
     display: none;
     margin: 0;
   }
-  @media (min-width: 992px) {
+  @media ${device.laptop} {
     position: sticky;
     top: 0;
     .nav-center {

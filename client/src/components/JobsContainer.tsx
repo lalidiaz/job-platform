@@ -51,12 +51,13 @@ const Wrapper = styled.section`
     text-transform: none;
   }
   & > h5 {
-    font-weight: 700;
+    font-weight: 400;
   }
   .jobs {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 2rem;
+    
   }
   @media ${device.tablet} {
     .jobs {

@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { showStats } from "../../features/job/allJobSlice";
 
 const Stats = () => {
-  const { isLoading, monthlyApplications } = useAppSelector((store) => store.allJobs);
+  const { monthlyApplications } = useAppSelector((store) => store.allJobs);
 
   const dispatch = useAppDispatch();
 

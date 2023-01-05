@@ -9,7 +9,7 @@ const BarChartComponent = ({ data }: { data: IMontlhyApplications[] }) => {
         <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Bar dataKey="count" fill="#3b82f6" barSize={75} />
+        <Bar dataKey="count" fill="#81a0d3" barSize={75} />
       </BarChart>
     </ResponsiveContainer>
   );

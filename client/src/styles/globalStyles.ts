@@ -4,13 +4,13 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family:var(--work-sans);
-    background-color:var(--theme-ui-background);
-    color:var(--theme-ui-text);
+    font-family:var(--poppins);
+    background-color:var(--background);
+    color:var(--text);
   }
     h1 {
       margin-top: 0;
-      font-size: 3.052rem;
+      font-size: 2.5rem;
     }
     
     h2 {
@@ -18,7 +18,8 @@ const GlobalStyle = createGlobalStyle`
     }
     
     h3 {
-      font-size: 1.953rem;
+      font-weight: 700;
+      font-size: 1.4rem;
     }
     
     h4 {
@@ -48,33 +49,29 @@ const GlobalStyle = createGlobalStyle`
     .btn {
       cursor: pointer;
       color: var(--white);
-      background: var(--theme-ui-purple);
+      background: var(--green-logo);
       border: transparent;
       border-radius: var(--borderRadius);
       letter-spacing: var(--letterSpacing);
       padding: 0.375rem 0.75rem;
-      box-shadow: var(--shadow-2);
       transition: var(--transition);
       text-transform: capitalize;
       display: inline-block;
     }
     .btn:hover {
-      background: var(--primary-700);
-      box-shadow: var(--shadow-3);
+      background: var(--green-logo-dark);
     }
 
   .form {
     width: 90vw;
     max-width: var(--fixed-width);
     border-radius: var(--borderRadius);
-    box-shadow: var(--shadow-2);
     padding: 2rem 2.5rem;
     margin: 3rem auto;
+    border:1px solid var(--gray);
     transition: var(--transition);
   }
-  .form:hover {
-    box-shadow: var(--shadow-4);
-  }
+ 
   .form-label {
     display: block;
     font-size: var(--smallText);
@@ -88,20 +85,17 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     padding: 0.375rem 0.75rem;
     border-radius: var(--borderRadius);
-    background: var(--backgroundColor);
     border: 1px solid var(--grey-200);
+    background-color:var(--inputBackground);
   }
   .form-input,
   .form-select,
   .btn-block {
     height: 35px;
   }
-  .form-row {
-    margin-bottom: 1rem;
 
-    .form-label{
-      color:var(--theme-ui-text);
-    }
+  .form-row{
+    margin-bottom:20px;
   }
 
   .form-textarea {
@@ -138,7 +132,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .logo{
-    width:5rem;
+    width:150px;
+    
   }
 
   `;

@@ -19,7 +19,7 @@ const SmallSideBar = (): JSX.Element => {
       <div className={isSidebarOpen ? "sidebar-container show-sidebar" : "sidebar-container"}>
         <div className="content">
           <button className="close-btn" onClick={toggle}>
-            <FaTimes />
+            <FaTimes color="#2b2c31" />
           </button>
           <header>
             <Logo />
@@ -80,16 +80,16 @@ const Wrapper = styled.aside`
   .nav-link {
     display: flex;
     align-items: center;
-    color: var(--grey-500);
+    color: var(--grey);
     padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);
   }
   .nav-link:hover {
-    color: var(--grey-900);
+    color: var(--grey);
   }
   .nav-link:hover .icon {
-    color: var(--primary-500);
+    color: var(--blue);
   }
   .icon {
     font-size: 1.5rem;
@@ -99,9 +99,9 @@ const Wrapper = styled.aside`
     transition: var(--transition);
   }
   .active {
-    color: var(--grey-900);
+    color: var(--blue);
   }
   .active .icon {
-    color: var(--primary-500);
+    color: var(--blue);
   }
 `;

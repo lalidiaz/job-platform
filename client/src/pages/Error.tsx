@@ -30,10 +30,10 @@ const Wrapper = styled.main`
   p {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: var(--grey-500);
+    color: var(--grey);
   }
   a {
-    color: var(--primary-500);
+    color: var(--blue);
     text-decoration: underline;
     text-transform: capitalize;
   }

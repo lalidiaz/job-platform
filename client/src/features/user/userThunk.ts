@@ -1,6 +1,7 @@
 import customFetch from "../../utils/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { logoutUser } from "./userSlice";
 
 interface IErrorMsg {
   message: string;

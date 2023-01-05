@@ -116,7 +116,6 @@ const jobSlice = createSlice({
       return { ...initialState, jobLocation: getUserFromLocalStorage()?.location || "" };
     },
     setEditJob: (state, { payload }) => {
-      console.log("payload, ", payload);
       return { ...state, isEditing: true, ...payload };
     },
   },
