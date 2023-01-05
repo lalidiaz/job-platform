@@ -70,7 +70,7 @@ const Wrapper = styled.nav`
     background: transparent;
     border-color: transparent;
     font-size: 1.75rem;
-    color: var(--green-logo);
+    color: var(--green);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -91,7 +91,7 @@ const Wrapper = styled.nav`
     top: 40px;
     left: 0;
     width: 100%;
-    background-color: var(--green-logo-dark);
+    background-color: var(--green-dark);
     padding: 0.5rem;
     text-align: center;
     visibility: hidden;

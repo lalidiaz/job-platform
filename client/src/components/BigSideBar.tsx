@@ -61,19 +61,19 @@ const Wrapper = styled.aside`
     .nav-link {
       display: flex;
       align-items: center;
-      color: var(--green-logo-dark);
+      color: var(--green-dark);
       padding: 1rem 0;
       padding-left: 2.5rem;
       text-transform: capitalize;
       transition: var(--transition);
     }
     .nav-link:hover {
-      background: var(--green-logo-transparent);
+      background: var(--green-transparent);
       padding-left: 3rem;
-      color: var(--green-logo-dark);
+      color: var(--green-dark);
     }
     .nav-link:hover .icon {
-      color: var(--green-logo-dark);
+      color: var(--green-dark);
     }
     .icon {
       font-size: 1.5rem;
@@ -83,11 +83,11 @@ const Wrapper = styled.aside`
       transition: var(--transition);
     }
     .active {
-      color: var(--green-logo-dark);
-      background: var(--green-logo-transparent);
+      color: var(--green-dark);
+      background: var(--green-transparent);
     }
     .active .icon {
-      color: var(--green-logo-dark);
+      color: var(--green-dark);
     }
   }
 `;

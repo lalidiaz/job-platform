@@ -33,8 +33,6 @@ body {
   --blue-light: #85a1f789;
   --gray: #e0e0e0;
   --gray-dark: #888585;
-  --green-dark: #395230;
-  --green: #7eb36a;
   --nav-height: 4rem;
   --line-height: 1.35;
   --letter-spacing: 0.01em;
@@ -45,9 +43,9 @@ body {
   --max-width: 1120px;
   --borderRadius: 0.3rem;
   --inputBackground: #f0f4f8;
-  --green-logo: #5bbba9;
-  --green-logo-dark: #2e6056;
-  --green-logo-transparent: #2e605648;
+  --green: #5bbba9;
+  --green-dark: #2e6056;
+  --green-transparent: #2e605648;
 }
 
 .Toastify__toast {
@@ -57,7 +55,7 @@ body {
 .loading {
   width: 6rem;
   height: 6rem;
-  border: 5px solid var(--blue);
+  border: 5px solid var(--green);
   border-radius: 50%;
   border-top-color: var(--gray);
   animation: spinner 2s linear infinite;

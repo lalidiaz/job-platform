@@ -52,7 +52,7 @@ const Wrapper = styled.main`
     font-weight: 700;
     color: var(--text);
     span {
-      color: var(--green-logo);
+      color: var(--green);
     }
   }
   p {
@@ -60,16 +60,16 @@ const Wrapper = styled.main`
     line-height: 1.8rem;
 
     span {
-      color: var(--green-logo);
+      color: var(--green);
     }
   }
   .btn-hero {
     font-size: 1rem;
     padding: 0.5rem 1.25rem;
-    background-color: var(--green-logo);
+    background-color: var(--green);
   }
   .btn-hero:hover {
-    background-color: var(--green-logo-dark);
+    background-color: var(--green-dark);
   }
   .main-img {
     display: none;

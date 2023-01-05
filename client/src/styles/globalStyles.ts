@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
     .btn {
       cursor: pointer;
       color: var(--white);
-      background: var(--green-logo);
+      background: var(--green);
       border: transparent;
       border-radius: var(--borderRadius);
       letter-spacing: var(--letterSpacing);
@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
       display: inline-block;
     }
     .btn:hover {
-      background: var(--green-logo-dark);
+      background: var(--green-dark);
     }
 
   .form {

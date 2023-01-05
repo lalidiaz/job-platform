@@ -24,7 +24,7 @@ const Wrapper = styled.section`
     background: transparent;
     border-color: transparent;
     text-transform: capitalize;
-    color: var(--green-logo);
+    color: var(--green);
     font-size: 1.25rem;
     cursor: pointer;
   }

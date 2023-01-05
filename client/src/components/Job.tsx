@@ -185,7 +185,7 @@ const Wrapper = styled.article`
     height: 30px;
   }
   .edit-btn {
-    background: var(--green-logo);
+    background: var(--green);
     margin-right: 0.5rem;
   }
   .delete-btn {

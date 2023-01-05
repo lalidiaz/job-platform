@@ -117,7 +117,7 @@ export default Register;
 const Wrapper = styled.section`
   display: grid;
   align-items: center;
-  background-color: var(--green-logo);
+  background-color: var(--green);
 
   .logo {
     display: block;
@@ -146,7 +146,7 @@ const Wrapper = styled.section`
   .member-btn {
     background: transparent;
     border: transparent;
-    color: var(--green-logo);
+    color: var(--green);
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }
