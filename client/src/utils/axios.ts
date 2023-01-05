@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { clearStoreValues, logoutUser } from "../features/user/userSlice";
 
 const customFetch = axios.create({
-  baseURL: "https://job-platform-v2.onrender.com/api/v2",
+  baseURL: process.env.REACT_APP_URL,
 });
 
 customFetch.interceptors.request.use((config) => {
