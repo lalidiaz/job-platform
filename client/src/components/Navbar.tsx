@@ -4,7 +4,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import Logo from "./Logo";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks";
-import { toggleSidebar, clearStoreValues } from "../features/user/userSlice";
+import { clearStoreValues, toggleSidebar } from "../features/user/userSlice";
 import { device } from "../styles/device";
 
 const Navbar = (): JSX.Element => {
@@ -26,7 +26,11 @@ const Navbar = (): JSX.Element => {
           <Logo />
         </div>
         <div className="btn-container">
-          <button type="button" className="btn" onClick={() => setShowLogout(!showLogout)}>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => setShowLogout(!showLogout)}
+          >
             <FaUserCircle />
             {user?.name}
             <FaCaretDown />
@@ -56,9 +60,7 @@ const Wrapper = styled.nav`
   box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
 
   .logo {
-    display: flex;
-    align-items: center;
-    width: 200px;
+    display: none;
   }
   .nav-center {
     display: flex;
@@ -108,10 +110,6 @@ const Wrapper = styled.nav`
     text-transform: capitalize;
     cursor: pointer;
   }
-  .logo-text {
-    display: none;
-    margin: 0;
-  }
   @media ${device.laptop} {
     position: sticky;
     top: 0;
@@ -119,10 +117,9 @@ const Wrapper = styled.nav`
       width: 90%;
     }
     .logo {
-      display: none;
-    }
-    .logo-text {
-      display: block;
+      display: flex;
+      align-items: center;
+      width: 200px;
     }
   }
 `;

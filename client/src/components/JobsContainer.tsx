@@ -6,8 +6,17 @@ import { device } from "../styles/device";
 import { getAllJobs } from "../features/job/allJobSlice";
 
 const JobsContainer = () => {
-  const { jobs, isLoading, page, totalJobs, numPages, search, searchStatus, searchType, sort } =
-    useAppSelector((store) => store.allJobs);
+  const {
+    jobs,
+    isLoading,
+    page,
+    totalJobs,
+    numPages,
+    search,
+    searchStatus,
+    searchType,
+    sort,
+  } = useAppSelector((store) => store.allJobs);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,7 +44,13 @@ const JobsContainer = () => {
       </h4>
       <div className="jobs">
         {jobs.map((job) => {
-          return <Job key={job._id as string} {...job} createdAt={job.createdAt as Date} />;
+          return (
+            <Job
+              key={job._id as string}
+              {...job}
+              createdAt={job.createdAt as Date}
+            />
+          );
         })}
       </div>
       {numPages > 1 && <PageBtnContainer />}
@@ -57,7 +72,6 @@ const Wrapper = styled.section`
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 2rem;
-    
   }
   @media ${device.tablet} {
     .jobs {

@@ -8,7 +8,7 @@ const getAllJobs = async (req, res) => {
   const { search, status, jobType, sort } = req.query;
 
   const queryObject = {
-    createdBy: req.user.userID,
+    createdBy: req.user.userId,
   };
 
   if (search) queryObject.position = { $regex: search, $options: "i" };
@@ -38,24 +38,24 @@ const getAllJobs = async (req, res) => {
 };
 
 const createJob = async (req, res) => {
-  req.body.createdBy = req.user.userID;
+  req.body.createdBy = req.user.userId;
   const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ job });
 };
 
 const getJob = async (req, res) => {
   const {
-    user: { userID },
-    params: { id: jobID },
+    user: { userId },
+    params: { id: jobId },
   } = req;
 
   const job = await Job.findOne({
-    _id: jobID,
-    createdBy: userID,
+    _id: jobId,
+    createdBy: userId,
   });
 
   if (!job) {
-    throw new NotFoundError(`No job with id ${jobID}.`);
+    throw new NotFoundError(`No job with id ${jobId}.`);
   }
   res.status(StatusCodes.OK).json({ job });
 };
@@ -63,36 +63,36 @@ const getJob = async (req, res) => {
 const updateJob = async (req, res) => {
   const {
     body: { company, position },
-    user: { userID },
-    params: { id: jobID },
+    user: { userId },
+    params: { id: jobId },
   } = req;
 
   if (company === "" || position === "") {
     throw new BadRequestError("Company or Position fields cannot be empty");
   }
-  const job = await Job.findByIdAndUpdate({ _id: jobID, createdBy: userID }, req.body, {
+  const job = await Job.findByIdAndUpdate({ _id: jobId, createdBy: userId }, req.body, {
     new: true,
     runValidators: true,
   });
   if (!job) {
-    throw new NotFoundError(`No job with id ${jobID}`);
+    throw new NotFoundError(`No job with id ${jobId}`);
   }
   res.status(StatusCodes.OK).json({ job });
 };
 
 const deleteJob = async (req, res) => {
   const {
-    user: { userID },
-    params: { id: jobID },
+    user: { userId },
+    params: { id: jobId },
   } = req;
 
   const job = await Job.findOneAndRemove({
-    _id: jobID,
-    createdBy: userID,
+    _id: jobId,
+    createdBy: userId,
   });
 
   if (!job) {
-    throw new NotFoundError(`No job with id ${jobID}`);
+    throw new NotFoundError(`No job with id ${jobId}`);
   }
 
   res.status(StatusCodes.OK).send();
@@ -100,7 +100,7 @@ const deleteJob = async (req, res) => {
 
 const showStats = async (req, res) => {
   let stats = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userID) } },
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
     { $group: { _id: "$status", count: { $sum: 1 } } },
   ]);
 
@@ -117,7 +117,7 @@ const showStats = async (req, res) => {
   };
 
   let monthlyApplications = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userID) } },
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
     {
       $group: {
         _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },

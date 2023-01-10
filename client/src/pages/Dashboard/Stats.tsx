@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { StatsContainer, ChartsContainer } from "../../components";
+import { StatsContainer, ChartsContainer, Loading } from "../../components";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { showStats } from "../../features/job/allJobSlice";
 
 const Stats = () => {
-  const { monthlyApplications } = useAppSelector((store) => store.allJobs);
+  const { isLoading, monthlyApplications } = useAppSelector(
+    (store) => store.allJobs
+  );
 
   const dispatch = useAppDispatch();
 
@@ -12,10 +14,21 @@ const Stats = () => {
     dispatch(showStats());
   }, []);
 
+  if (isLoading) {
+    return <Loading center />;
+  }
+
   return (
     <>
       <StatsContainer />
-      {monthlyApplications.length > 0 && <ChartsContainer />}
+
+      {monthlyApplications.length > 0 ? (
+        <ChartsContainer />
+      ) : (
+        <div className="no-data">
+          <h3>No data to display</h3>
+        </div>
+      )}
     </>
   );
 };

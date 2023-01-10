@@ -1,9 +1,7 @@
-import { createSlice, createAsyncThunk, AsyncThunkAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
-import axios from "axios";
+import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 import { RootState } from "../../store";
-import { registerThunk, loginThunk } from "./userThunk";
 import {
   addUserToLocalStorage,
   removeUserToLocalStorage,
@@ -11,10 +9,8 @@ import {
 } from "../../utils/localStorage";
 import { clearAllJobsState } from "../job/allJobSlice";
 import { clearValues } from "../job/jobSlice";
-
-interface IErrorMsg {
-  message: string;
-}
+// import { clearAllJobsState } from "../job/allJobSlice";
+// import { clearValues } from "../job/jobSlice";
 
 export interface IUser {
   email: string;
@@ -24,7 +20,7 @@ export interface IUser {
   token?: string;
 }
 
-interface IUserProps {
+export interface IUserProps {
   user: IUser;
 }
 
@@ -45,14 +41,30 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user: { email: string; name: string; password: string }, thunkApi) => {
-    return registerThunk("/auth/register", user, thunkApi);
+    try {
+      const response = await customFetch.post("/auth/register", user);
+      return response.data;
+    } catch (error) {
+      return checkForUnauthorizedResponse(
+        error as { response: { status: number; data: { msg: string } } },
+        thunkApi
+      );
+    }
   }
 );
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user: { email: string; password: string }, thunkApi) => {
-    return loginThunk("/auth/login", user, thunkApi);
+    try {
+      const response = await customFetch.post("/auth/login", user);
+      return response.data;
+    } catch (error) {
+      return checkForUnauthorizedResponse(
+        error as { response: { status: number; data: { msg: string } } },
+        thunkApi
+      );
+    }
   }
 );
 
@@ -66,21 +78,12 @@ export const updateUser = createAsyncThunk<IUserProps, IUser>(
           Authorization: `Bearer ${state.user?.user?.token}`,
         },
       });
-
       return response.data;
     } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        if (error.response.status === 401) {
-          message = "Unauthorized";
-          thunkApi.dispatch(logoutUser(message));
-          toast.error(message);
-          return thunkApi.rejectWithValue(message);
-        }
-        message = error.response.data.msg;
-      } else message = String(error);
-      toast.error(message);
-      return thunkApi.rejectWithValue(message as IErrorMsg);
+      return checkForUnauthorizedResponse(
+        error as { response: { status: number; data: { msg: string } } },
+        thunkApi
+      );
     }
   }
 );
@@ -125,7 +128,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
-        toast.success(`Hello there ${user.name}`);
+        toast.success(`Hello ${user.name}`);
       })
       .addCase(registerUser.rejected, (state, action) => {
         if (action.payload) {
@@ -143,7 +146,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
-        toast.success(`Hello there ${user.name}`);
+        toast.success(`Hello ${user.name}`);
       })
       .addCase(loginUser.rejected, (state, action) => {
         if (action.payload) {

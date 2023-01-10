@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { RootState } from "../../store";
 import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
-import { logoutUser } from "../user/userSlice";
 import { IJob } from "./jobSlice";
 
 export interface IMontlhyApplications {

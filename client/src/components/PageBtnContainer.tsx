@@ -2,6 +2,7 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 import styled from "styled-components";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { changePage } from "../features/job/allJobSlice";
+import { device } from "../styles/device";
 
 const PageBtnContainer = () => {
   const { numPages, page } = useAppSelector((store) => store.allJobs);
@@ -47,7 +48,7 @@ const PageBtnContainer = () => {
           );
         })}
       </div>
-      <button type="button" className="prev-btn" onClick={nextPage}>
+      <button type="button" className="next-btn" onClick={nextPage}>
         <HiChevronDoubleRight />
         Next
       </button>
@@ -56,16 +57,14 @@ const PageBtnContainer = () => {
 };
 
 const Wrapper = styled.section`
-  height: 6rem;
-  margin-top: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: end;
-  flex-wrap: wrap;
-  gap: 1rem;
   .btn-container {
-    background: var(--primary-100);
     border-radius: var(--borderRadius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   .pageBtn {
     background: transparent;
@@ -103,10 +102,28 @@ const Wrapper = styled.section`
     cursor: pointer;
     transition: var(--transition);
   }
+
+  .prev-btn {
+    margin: 0px 10px 0px 0px;
+  }
+  .next-btn {
+    margin: 0px 0px 0px 10px;
+  }
+
   .prev-btn:hover,
   .next-btn:hover {
     background: var(--gray);
     color: var(--text);
+  }
+
+  @media ${device.laptop} {
+    height: 6rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 `;
 
