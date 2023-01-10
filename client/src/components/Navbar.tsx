@@ -117,9 +117,7 @@ const Wrapper = styled.nav`
       width: 90%;
     }
     .logo {
-      display: flex;
-      align-items: center;
-      width: 200px;
+      display: none;
     }
   }
 `;
