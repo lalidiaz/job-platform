@@ -6,8 +6,7 @@ import { clearAllJobsState } from "../features/job/allJobSlice";
 import { clearValues } from "../features/job/jobSlice";
 
 const customFetch = axios.create({
-  // baseURL: process.env.REACT_APP_URL,
-  baseURL: "http://localhost:3000/api/v2",
+  baseURL: process.env.REACT_APP_URL,
 });
 
 export const checkForUnauthorizedResponse = (
