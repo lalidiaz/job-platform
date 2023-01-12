@@ -52,43 +52,54 @@ const initialState = {
   ...initialFiltersState,
 } as IAllJobs;
 
-export const getAllJobs = createAsyncThunk("allJobs/getAllJobs", async (_, thunkApi) => {
-  try {
-    const state = thunkApi.getState() as RootState;
+export const getAllJobs = createAsyncThunk(
+  "allJobs/getAllJobs",
+  async (_, thunkApi) => {
+    try {
+      const state = thunkApi.getState() as RootState;
 
-    const { page, searchStatus, searchType, sort, search } = state.allJobs;
+      const { page, searchStatus, searchType, sort, search } = state.allJobs;
 
-    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`;
+      let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`;
 
-    if (search) url = url + `&search=${search}`;
+      if (search) url = url + `&search=${search}`;
 
-    const response = await customFetch.get(url, {
-      headers: {
-        Authorization: `Bearer ${state.user?.user?.token}`,
-      },
-    });
+      const response = await customFetch.get(url, {
+        headers: {
+          Authorization: `Bearer ${state.user?.user?.token}`,
+        },
+      });
 
-    return response.data;
-  } catch (error) {
-    return checkForUnauthorizedResponse(
-      error as { response: { status: number; data: { msg: string } } },
-      thunkApi
-    );
+      return response.data;
+    } catch (error) {
+      return checkForUnauthorizedResponse(
+        error as { response: { status: number; data: { msg: string } } },
+        thunkApi
+      );
+    }
   }
-});
+);
 
-export const showStats = createAsyncThunk("allJobs/showStats", async (_, thunkApi) => {
-  try {
-    const response = await customFetch.get("/jobs/stats");
+export const showStats = createAsyncThunk(
+  "allJobs/showStats",
+  async (_, thunkApi) => {
+    try {
+      const state = thunkApi.getState() as RootState;
+      const response = await customFetch.get("/jobs/stats", {
+        headers: {
+          Authorization: `Bearer ${state.user?.user?.token}`,
+        },
+      });
 
-    return response.data;
-  } catch (error) {
-    return checkForUnauthorizedResponse(
-      error as { response: { status: number; data: { msg: string } } },
-      thunkApi
-    );
+      return response.data;
+    } catch (error) {
+      return checkForUnauthorizedResponse(
+        error as { response: { status: number; data: { msg: string } } },
+        thunkApi
+      );
+    }
   }
-});
+);
 
 const allJobSlice = createSlice({
   name: "allJobs",
@@ -120,7 +131,12 @@ const allJobSlice = createSlice({
       .addCase(
         getAllJobs.fulfilled,
         (
-          state: { isLoading: boolean; jobs: IJob[]; numPages: number; totalJobs: number },
+          state: {
+            isLoading: boolean;
+            jobs: IJob[];
+            numPages: number;
+            totalJobs: number;
+          },
           { payload }: any
         ) => {
           state.isLoading = false;

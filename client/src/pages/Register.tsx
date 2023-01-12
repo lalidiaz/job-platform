@@ -15,8 +15,9 @@ const initialState = {
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-  const { isLoading, user } = useAppSelector((store) => store.user);
+  const { isLoading, user, error } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
+console.log("error", error);
 
   useEffect(() => {
     if (user) {
@@ -62,7 +63,6 @@ const Register = (): JSX.Element => {
         <form className="form" onSubmit={handleSubmit}>
           <Logo />
           <h3> {values.isMember ? "Login" : "Register"} </h3>
-
           {!values.isMember && (
             <FormRow
               name="name"
@@ -96,7 +96,11 @@ const Register = (): JSX.Element => {
             type="button"
             className="btn btn-block btn-hipster"
             disabled={isLoading}
-            onClick={() => dispatch(loginUser({ email: "testUser@test.com", password: "secret" }))}
+            onClick={() =>
+              dispatch(
+                loginUser({ email: "testUser@test.com", password: "secret" })
+              )
+            }
           >
             {isLoading ? "loading..." : "demo"}
           </button>
@@ -107,6 +111,8 @@ const Register = (): JSX.Element => {
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
+
+          {/* {error && <p>error</p>} */}
         </form>
       </div>
     </Wrapper>
