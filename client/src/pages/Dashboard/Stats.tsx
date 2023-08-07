@@ -7,7 +7,6 @@ const Stats = () => {
   const { isLoading, monthlyApplications } = useAppSelector(
     (store) => store.allJobs
   );
-  console.log("isLoading", isLoading);
 
   const dispatch = useAppDispatch();
 

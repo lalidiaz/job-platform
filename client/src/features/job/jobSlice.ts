@@ -1,29 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { RootState } from "../../store";
 import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 import { getAllJobs, hideLoading, showLoading } from "./allJobSlice";
-
-interface IObjectKeys {
-  [key: string]: string | string[] | boolean | undefined | number | Date;
-}
-
-export interface IJob extends IObjectKeys {
-  _id?: string;
-  isLoading?: boolean;
-  position: string;
-  company: string;
-  jobLocation: string;
-  jobTypeOptions?: string[];
-  jobType: string;
-  statusOptions?: string[];
-  status: string;
-  isEditing?: boolean;
-  editJobId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import { IJob } from "../../types";
 
 const initialState = {
   _id: "",
@@ -43,12 +23,7 @@ export const createJob = createAsyncThunk(
   "job/createJob",
   async (job: IJob, thunkApi) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.post("/jobs", job, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.post("/jobs", job);
       thunkApi.dispatch(clearValues());
       return response.data;
     } catch (error) {
@@ -81,22 +56,13 @@ export const editJob = createAsyncThunk(
     thunkApi
   ) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.patch(
-        `/jobs/${jobId}`,
-        {
-          position,
-          company,
-          jobLocation,
-          jobType,
-          status,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${state.user?.user?.token}`,
-          },
-        }
-      );
+      const response = await customFetch.patch(`/jobs/${jobId}`, {
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      });
 
       thunkApi.dispatch(clearValues());
       return response.data;
@@ -114,12 +80,7 @@ export const deleteJob = createAsyncThunk(
   async (jobId: string, thunkApi) => {
     thunkApi.dispatch(showLoading());
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.delete(`/jobs/${jobId}`, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.delete(`/jobs/${jobId}`);
       thunkApi.dispatch(getAllJobs());
       return response.data.msg;
     } catch (error) {

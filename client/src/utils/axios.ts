@@ -9,6 +9,15 @@ const customFetch = axios.create({
   baseURL: process.env.REACT_APP_URL,
 });
 
+customFetch.interceptors.request.use((config) => {
+  const user = getUserFromLocalStorage();
+  if (user) {
+    const headers = config.headers as { [key: string]: string };
+    headers["Authorization"] = `Bearer ${user.token}`;
+  }
+  return config;
+});
+
 export const checkForUnauthorizedResponse = (
   error: { response: { status: number; data: { msg: string } } },
   thunkApi: { dispatch: Dispatch; rejectWithValue: (arg0: string) => any }

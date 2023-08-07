@@ -1,3 +1,4 @@
+import { IMontlhyApplications } from "../types";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -7,7 +8,6 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { IMontlhyApplications } from "../features/job/allJobSlice";
 
 const AreaChartComponent = ({ data }: { data: IMontlhyApplications[] }) => {
   return (

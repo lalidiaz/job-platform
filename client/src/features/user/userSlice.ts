@@ -8,7 +8,6 @@ import {
 } from "../../utils/localStorage";
 import { clearAllJobsState } from "../job/allJobSlice";
 import { clearValues } from "../job/jobSlice";
-import { RootState } from "../../store";
 import axios from "axios";
 
 export interface IUser {
@@ -41,12 +40,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user: { email: string; name: string; password: string }, thunkApi) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.post("/auth/register", user, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.post("/auth/register", user);
 
       return response.data;
     } catch (error) {
@@ -64,12 +58,7 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user: { email: string; password: string }, thunkApi) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.post("/auth/login", user, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.post("/auth/login", user);
       return response.data;
     } catch (error) {
       let message;
@@ -86,12 +75,7 @@ export const updateUser = createAsyncThunk<IUserProps, IUser>(
   "user/updateUser",
   async (user, thunkApi) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.patch("/auth/updateUser", user, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.patch("/auth/updateUser", user);
       return response.data;
     } catch (error) {
       return checkForUnauthorizedResponse(
@@ -166,7 +150,7 @@ const userSlice = createSlice({
         if (payload) {
           state.isLoading = false;
           state.error = payload;
-          console.log("payload", payload);
+
           toast.error(payload as string);
         }
       })

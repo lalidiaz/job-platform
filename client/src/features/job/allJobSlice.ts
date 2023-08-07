@@ -2,36 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { RootState } from "../../store";
 import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
-import { IJob } from "./jobSlice";
-
-export interface IMontlhyApplications {
-  date: string;
-  count: number;
-}
-
-interface IStats {
-  pending: number;
-  interview: number;
-  declined: number;
-}
-export interface IAllJobs {
-  [x: string]: any;
-  isLoading: boolean;
-  jobs: IJob[];
-  totalJobs: number;
-  numPages: number;
-  page: number;
-  stats?: IStats | null;
-  monthlyApplications: IMontlhyApplications[];
-}
-
-export interface InitialFilters {
-  search: string;
-  searchStatus: string;
-  searchType: string;
-  sort: string;
-  sortOptions: string[];
-}
+import { IAllJobs, InitialFilters, IJob } from "../../types";
 
 const initialFiltersState = {
   search: "",
@@ -64,11 +35,7 @@ export const getAllJobs = createAsyncThunk(
 
       if (search) url = url + `&search=${search}`;
 
-      const response = await customFetch.get(url, {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.get(url);
 
       return response.data;
     } catch (error) {
@@ -84,12 +51,7 @@ export const showStats = createAsyncThunk(
   "allJobs/showStats",
   async (_, thunkApi) => {
     try {
-      const state = thunkApi.getState() as RootState;
-      const response = await customFetch.get("/jobs/stats", {
-        headers: {
-          Authorization: `Bearer ${state.user?.user?.token}`,
-        },
-      });
+      const response = await customFetch.get("/jobs/stats");
 
       return response.data;
     } catch (error) {

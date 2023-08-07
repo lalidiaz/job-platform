@@ -17,7 +17,6 @@ const Register = (): JSX.Element => {
   const [values, setValues] = useState(initialState);
   const { isLoading, user, error } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
-console.log("error", error);
 
   useEffect(() => {
     if (user) {

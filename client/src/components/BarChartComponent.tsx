@@ -1,5 +1,13 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { IMontlhyApplications } from "../features/job/allJobSlice";
+import { IMontlhyApplications } from "../types";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const BarChartComponent = ({ data }: { data: IMontlhyApplications[] }) => {
   return (
@@ -9,7 +17,7 @@ const BarChartComponent = ({ data }: { data: IMontlhyApplications[] }) => {
         <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Bar dataKey="count" fill="#5bbba9" barSize={75} />
+        <Bar dataKey="count" fill="#3b82f6" barSize={75} />
       </BarChart>
     </ResponsiveContainer>
   );

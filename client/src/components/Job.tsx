@@ -3,8 +3,9 @@ import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { JobInfo } from ".";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { deleteJob, setEditJob, IJob } from "../features/job/jobSlice";
+import { deleteJob, setEditJob } from "../features/job/jobSlice";
 import { useAppDispatch } from "../hooks";
+import { IJob } from "../types";
 
 const Job = ({
   _id,

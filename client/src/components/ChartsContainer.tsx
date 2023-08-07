@@ -5,14 +5,20 @@ import { BarChartComponent, AreaChartComponent } from "./";
 
 const ChartsContainer = () => {
   const [barChart, setBarChart] = useState(true);
-  const { monthlyApplications: data } = useAppSelector((store: { allJobs: any }) => store.allJobs);
+  const { monthlyApplications: data } = useAppSelector(
+    (store: { allJobs: any }) => store.allJobs
+  );
   return (
     <Wrapper>
       <h4>Monthly Applications</h4>
       <button type="button" onClick={() => setBarChart(!barChart)}>
         {barChart ? "Area Chart" : "Bar Chart"}
       </button>
-      {barChart ? <BarChartComponent data={data} /> : <AreaChartComponent data={data} />}
+      {barChart ? (
+        <BarChartComponent data={data} />
+      ) : (
+        <AreaChartComponent data={data} />
+      )}
     </Wrapper>
   );
 };
