@@ -14,7 +14,7 @@
 - Reactjs (Frontend)
 - Mongo - Mongoose (Database)
 
-You can test the deployed version here [job tracker app](https://job-platform-v2.onrender.com/)
+You can test the deployed version here [job tracker app]([https://job-platform-v2.onrender.com/](https://job-tracking-fullstack-app.web.app/landing)
 
 You can register, log in with your existing user or log in as test user with **demo** button.
 
